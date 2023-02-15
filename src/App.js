@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import CreateTask from './components/CreateTask';
+import ListTasks from './components/ListTasks';
+import { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [tasks, setTasks] = useState([]);
+
+  // CREATE TASK
+  const createNewTask = task => {
+    const updatedTasks = [
+      ...tasks,
+      { name: task, id: Math.round(Math.random() * 9999) },
+    ];
+    setTasks(updatedTasks);
+  };
+
+  // DELETE TASK BY ID
+  const deleteTaskById = id => {
+    const updatedTasks = tasks.filter(task => {
+      return task.id !== id;
+    });
+    setTasks(updatedTasks);
+  };
+
+  // EDIT TASK BY ID
+  const editTaskById = (id, newTask) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) return { ...task, name: newTask };
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>TO DO LIST 2023</h1>
+      <CreateTask onCreate={createNewTask} />
+      <ListTasks
+        tasks={tasks}
+        onDelete={deleteTaskById}
+        onEdit={editTaskById}
+      />
     </div>
   );
-}
+};
 
 export default App;
