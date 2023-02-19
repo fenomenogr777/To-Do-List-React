@@ -1,34 +1,49 @@
 import React from 'react';
 import CreateTask from './components/CreateTask';
 import ListTasks from './components/ListTasks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
+  // SHOW TASKS ON FIRST LOAD
+  useEffect(() => {
+    loadDataOnLoad();
+  }, []);
+
+  // GET TASKS FROM JSON SERVER
+  const loadDataOnLoad = async () => {
+    const res = await axios.get('http://localhost:3001/tasks');
+    setTasks(res.data);
+  };
+
   // CREATE TASK
-  const createNewTask = task => {
-    const updatedTasks = [
-      ...tasks,
-      { name: task, id: Math.round(Math.random() * 9999) },
-    ];
+  const createNewTask = async task => {
+    const res = await axios.post('http://localhost:3001/tasks', { name: task });
+    const updatedTasks = [...tasks, res.data];
     setTasks(updatedTasks);
   };
 
   // DELETE TASK BY ID
-  const deleteTaskById = id => {
+  const deleteTaskById = async id => {
+    const res = await axios.delete(`http://localhost:3001/tasks/${id}`);
     const updatedTasks = tasks.filter(task => {
-      return task.id !== id;
+      if (task.id !== id) return task;
     });
     setTasks(updatedTasks);
   };
 
   // EDIT TASK BY ID
-  const editTaskById = (id, newTask) => {
+  const editTaskById = async (id, newTask) => {
+    const res = await axios.put(`http://localhost:3001/tasks/${id}`, {
+      name: newTask,
+    });
     const updatedTasks = tasks.map(task => {
-      if (task.id === id) return { ...task, name: newTask };
+      if (task.id === id) return res.data;
       return task;
     });
+
     setTasks(updatedTasks);
   };
 

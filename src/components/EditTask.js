@@ -18,7 +18,7 @@ function EditTask({ task, onSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <label>Rename Task</label>
-      <input onChange={handleChange} value={name} />
+      <input onChange={handleChange} value={name} autoFocus />
       <button>Save</button>
     </form>
   );

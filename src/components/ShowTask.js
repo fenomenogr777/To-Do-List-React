@@ -17,8 +17,8 @@ function ShowTask({ task, onDelete, onEdit }) {
 
   // MERGE onEdit TO CHANGE editStatus ALSO ON SUBMIT
   const handleOnSubmit = (id, newName) => {
+    setEditStatus(false);
     onEdit(id, newName);
-    setEditStatus(!editStatus);
   };
 
   let content = editStatus ? (
