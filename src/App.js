@@ -9,11 +9,11 @@ const App = () => {
 
   // SHOW TASKS ON FIRST LOAD
   useEffect(() => {
-    loadDataOnLoad();
+    fetchTasks();
   }, []);
 
   // GET TASKS FROM JSON SERVER
-  const loadDataOnLoad = async () => {
+  const fetchTasks = async () => {
     const res = await axios.get('http://localhost:3001/tasks');
     setTasks(res.data);
   };
@@ -27,9 +27,9 @@ const App = () => {
 
   // DELETE TASK BY ID
   const deleteTaskById = async id => {
-    const res = await axios.delete(`http://localhost:3001/tasks/${id}`);
+    await axios.delete(`http://localhost:3001/tasks/${id}`);
     const updatedTasks = tasks.filter(task => {
-      if (task.id !== id) return task;
+      return task.id !== id;
     });
     setTasks(updatedTasks);
   };
