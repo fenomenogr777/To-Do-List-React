@@ -1,10 +1,10 @@
 import EditTask from './EditTask';
-import { useState, useContext } from 'react';
-import TasksContext from '../context/tasks';
+import { useState } from 'react';
+import { UseTasksContext } from '../hooks/use-Tasks-Context';
 
 function ShowTask({ task }) {
   const [editStatus, setEditStatus] = useState(false);
-  const { deleteTaskById } = useContext(TasksContext);
+  const { deleteTaskById } = UseTasksContext();
 
   //  HANDLE CLICK TO DELETE
   const handleDeleteClick = () => {
@@ -16,7 +16,6 @@ function ShowTask({ task }) {
     setEditStatus(!editStatus);
   };
 
-  // MERGE onEdit TO CHANGE editStatus ALSO ON SUBMIT
   const closeEditStatus = (id, newName) => {
     setEditStatus(false);
   };

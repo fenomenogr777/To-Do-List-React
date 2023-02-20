@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import ShowTask from './ShowTask';
-import TasksContext from '../context/tasks';
+import { UseTasksContext } from '../hooks/use-Tasks-Context';
 
 function ListTasks() {
-  const { tasks } = useContext(TasksContext);
+  const { tasks } = UseTasksContext();
   // LOOP TASKS
   const allTasks = tasks.map(task => {
     return <ShowTask key={task.id} task={task} />;

@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
-import TasksContext from '../context/tasks';
+import { useState } from 'react';
+import { UseTasksContext } from '../hooks/use-Tasks-Context';
 
 function EditTask({ task, onSubmit }) {
   const [name, setName] = useState(task.name);
-  const { editTaskById } = useContext(TasksContext);
+  const { editTaskById } = UseTasksContext();
 
   // RETURN EDITED NEW NAME AND REMOVE EDIT STATE ON SUBMIT
   const handleSubmit = e => {

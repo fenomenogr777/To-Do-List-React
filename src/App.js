@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import CreateTask from './components/CreateTask';
 import ListTasks from './components/ListTasks';
-import TasksContext from './context/tasks';
+import { UseTasksContext } from './hooks/use-Tasks-Context';
 
 const App = () => {
-  const { fetchTasks } = useContext(TasksContext);
+  const { fetchTasks } = UseTasksContext();
 
   // SHOW TASKS ON FIRST LOAD
   useEffect(() => {
