@@ -1,15 +1,19 @@
-import React from 'react';
+import { useContext } from 'react';
 import ShowTask from './ShowTask';
+import TasksContext from '../context/tasks';
 
-function ListTasks({ tasks, onDelete, onEdit }) {
+function ListTasks() {
+  const { tasks } = useContext(TasksContext);
   // LOOP TASKS
   const allTasks = tasks.map(task => {
-    return (
-      <ShowTask key={task.id} task={task} onDelete={onDelete} onEdit={onEdit} />
-    );
+    return <ShowTask key={task.id} task={task} />;
   });
 
-  return <div>{allTasks}</div>;
+  return (
+    <div>
+      {allTasks} {}
+    </div>
+  );
 }
 
 export default ListTasks;

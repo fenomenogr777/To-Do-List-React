@@ -1,13 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
 import EditTask from './EditTask';
+import { useState, useContext } from 'react';
+import TasksContext from '../context/tasks';
 
-function ShowTask({ task, onDelete, onEdit }) {
+function ShowTask({ task }) {
   const [editStatus, setEditStatus] = useState(false);
+  const { deleteTaskById } = useContext(TasksContext);
 
   //  HANDLE CLICK TO DELETE
   const handleDeleteClick = () => {
-    onDelete(task.id);
+    deleteTaskById(task.id);
   };
 
   // HANDLE CLICK TO EDIT
@@ -16,13 +17,12 @@ function ShowTask({ task, onDelete, onEdit }) {
   };
 
   // MERGE onEdit TO CHANGE editStatus ALSO ON SUBMIT
-  const handleOnSubmit = (id, newName) => {
+  const closeEditStatus = (id, newName) => {
     setEditStatus(false);
-    onEdit(id, newName);
   };
 
   let content = editStatus ? (
-    <EditTask task={task} onSubmit={handleOnSubmit} />
+    <EditTask task={task} onSubmit={closeEditStatus} />
   ) : (
     task.name
   );

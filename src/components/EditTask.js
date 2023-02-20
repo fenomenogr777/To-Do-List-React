@@ -1,13 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import TasksContext from '../context/tasks';
 
 function EditTask({ task, onSubmit }) {
   const [name, setName] = useState(task.name);
+  const { editTaskById } = useContext(TasksContext);
 
   // RETURN EDITED NEW NAME AND REMOVE EDIT STATE ON SUBMIT
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(task.id, name);
+    editTaskById(task.id, name);
+    onSubmit();
   };
 
   // HANDLE CHANGE ON INPUT AND SET THE NEW EDITED VALUE

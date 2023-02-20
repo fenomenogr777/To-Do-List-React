@@ -1,12 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import TasksContext from '../context/tasks';
 
-function CreateTask({ onCreate }) {
+function CreateTask() {
   const [task, setTask] = useState('');
+  const { createNewTask } = useContext(TasksContext);
 
   const handleSubmit = e => {
     e.preventDefault();
-    onCreate(task);
+    createNewTask(task);
     setTask('');
   };
 
