@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import axios from 'axios';
 
 const TasksContext = createContext();
@@ -6,11 +6,11 @@ const TasksContext = createContext();
 function Provider({ children }) {
   const [tasks, setTasks] = useState([]);
 
-  // GET TASKS FROM JSON SERVER
-  const fetchTasks = async () => {
+  // GET TASKS FROM JSON SERVER +ADDED useCallback TO FIX A BUG ON INF REQUESTS
+  const fetchTasks = useCallback(async () => {
     const res = await axios.get('http://localhost:3001/tasks');
     setTasks(res.data);
-  };
+  }, []);
 
   // CREATE TASK
   const createNewTask = async task => {

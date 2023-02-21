@@ -9,7 +9,7 @@ const App = () => {
   // SHOW TASKS ON FIRST LOAD
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]);
 
   return (
     <div>
